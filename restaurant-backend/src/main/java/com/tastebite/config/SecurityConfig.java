@@ -254,7 +254,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(
                 List.of(
-                        "http://localhost:4200"
+                        "http://localhost:4200",
+                        "https://tastebite-frontend-9aji.onrender.com"
                 )
         );
 
