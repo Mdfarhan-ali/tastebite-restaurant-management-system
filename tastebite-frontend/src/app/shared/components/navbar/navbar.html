@@ -1,0 +1,229 @@
+<nav class="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-xl">
+
+  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+
+    <!-- Logo -->
+    <span class="text-4xl font-bold tracking-tight">
+      Taste<span class="text-primary">Bite</span>
+    </span>
+
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden items-center gap-8 md:flex">
+
+      @for (item of navigation; track item.route) {
+
+      <li>
+
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="text-red-600 font-semibold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="transition hover:text-red-600"
+        >
+
+          {{ item.label }}
+
+        </a>
+
+      </li>
+
+      }
+
+    </ul>
+
+
+    <!-- Right Side -->
+    <div class="hidden items-center gap-4 md:flex">
+
+      <!-- Cart -->
+      <a
+        routerLink="/cart"
+        class="relative flex items-center justify-center rounded-[14px] px-4 py-3 text-xl transition-all duration-300 hover:bg-gray-100"
+      >
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        @if (cartService.totalItems() > 0) {
+
+        <span
+          class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-semibold text-white"
+        >
+
+          {{ cartService.totalItems() }}
+
+        </span>
+
+        }
+
+      </a>
+
+
+      <!-- Authentication -->
+      @if (authService.isAuthenticated()) {
+
+      <!-- Profile -->
+      <button
+        type="button"
+        (click)="openProfile()"
+        class="flex items-center justify-center rounded-[14px] px-4 py-3 text-xl transition-all duration-300 hover:bg-gray-100"
+      >
+
+        <i class="fa-regular fa-circle-user"></i>
+
+      </button>
+
+
+      <!-- Logout -->
+      <button
+        type="button"
+        (click)="logout()"
+        class="rounded-[14px] px-5 py-3 font-medium text-red-600 transition hover:bg-red-50"
+      >
+
+        Logout
+
+      </button>
+
+      } @else {
+
+      <!-- Login -->
+      <button
+        type="button"
+        routerLink="/auth/login"
+        class="rounded-[14px] border border-primary px-5 py-3 transition-all duration-300 hover:bg-primary hover:text-white"
+      >
+
+        Login
+
+      </button>
+
+      }
+
+
+      <!-- Reserve Table -->
+      <button
+        type="button"
+        class="rounded-[14px] bg-primary px-6 py-3 text-white transition-all duration-300 hover:scale-105 hover:bg-primary-hover"
+      >
+
+        <a routerLink="/reservation">
+          Reserve Table
+        </a>
+
+      </button>
+
+    </div>
+
+
+    <!-- Mobile Button -->
+    <button
+      type="button"
+      class="md:hidden"
+      (click)="toggleMenu()"
+    >
+
+      ☰
+
+    </button>
+
+  </div>
+
+
+  <!-- Mobile Menu -->
+  @if (isMenuOpen()) {
+
+  <div class="relative font-medium transition-all duration-300">
+
+    @for (item of navigation; track item.route) {
+
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="text-red-600 font-semibold"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="block border-b px-6 py-4"
+    >
+
+      {{ item.label }}
+
+    </a>
+
+    }
+
+
+    <!-- Mobile Cart -->
+    <a
+      routerLink="/cart"
+      class="flex items-center gap-3 border-b px-6 py-4"
+    >
+
+      <i class="fa-solid fa-cart-shopping text-lg"></i>
+
+      <span>
+        Cart
+      </span>
+
+      @if (cartService.totalItems() > 0) {
+
+      <span
+        class="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-semibold text-white"
+      >
+
+        {{ cartService.totalItems() }}
+
+      </span>
+
+      }
+
+    </a>
+
+
+    <!-- Mobile Authentication -->
+    @if (authService.isAuthenticated()) {
+
+    <!-- Profile -->
+    <button
+      type="button"
+      (click)="openProfile()"
+      class="flex w-full items-center gap-3 border-b px-6 py-4 text-left"
+    >
+
+      <i class="fa-regular fa-circle-user"></i>
+
+      <span>
+        Profile
+      </span>
+
+    </button>
+
+
+    <!-- Logout -->
+    <button
+      type="button"
+      (click)="logout()"
+      class="block w-full border-b px-6 py-4 text-left font-medium text-red-600"
+    >
+
+      Logout
+
+    </button>
+
+    } @else {
+
+    <!-- Login -->
+    <a
+      routerLink="/auth/login"
+      class="block border-b px-6 py-4"
+    >
+
+      Login
+
+    </a>
+
+    }
+
+  </div>
+
+  }
+
+</nav>

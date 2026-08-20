@@ -1,0 +1,266 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+  <div class="mx-auto max-w-4xl">
+
+    <!-- Back Link -->
+    <a
+      routerLink="/admin"
+      class="mb-8 mt-6 inline-block text-red-600 transition hover:text-red-700"
+    >
+      ← Back to Admin Dashboard
+    </a>
+
+    <!-- Page Heading -->
+    <div class="mb-10">
+
+      <span
+        class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600"
+      >
+        Admin Account
+      </span>
+
+      <h1 class="mt-2 text-4xl font-bold text-gray-900">
+        Admin Profile
+      </h1>
+
+      <p class="mt-2 text-gray-500">
+        Manage your administrator account and access.
+      </p>
+
+    </div>
+
+
+    @if (user) {
+
+      <!-- Profile Card -->
+      <div class="rounded-[24px] bg-white p-8 shadow-sm">
+
+        <!-- Profile Header -->
+        <div class="flex items-center gap-5 border-b pb-6">
+
+          <!-- Avatar -->
+          <div
+            class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-2xl font-bold text-red-600"
+          >
+            {{ user.name?.charAt(0)?.toUpperCase() }}
+          </div>
+
+
+          <!-- Name + Email -->
+          <div class="flex-1">
+
+            <div class="flex flex-wrap items-center gap-3">
+
+              <h2 class="text-2xl font-bold text-gray-900">
+                {{ user.name }}
+              </h2>
+
+              <!-- Admin Badge -->
+              <span
+                class="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600"
+              >
+                Administrator
+              </span>
+
+            </div>
+
+            <p class="mt-1 text-gray-500">
+              {{ user.email }}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- Account Information -->
+        <div class="mt-8">
+
+          <h3 class="mb-5 text-lg font-bold text-gray-900">
+            Account Information
+          </h3>
+
+
+          <div class="grid gap-6 md:grid-cols-2">
+
+            <!-- Full Name -->
+            <div
+              class="rounded-[16px] bg-[#faf9f7] p-5"
+            >
+
+              <p class="text-sm text-gray-500">
+                Full Name
+              </p>
+
+              <p class="mt-2 font-semibold text-gray-900">
+                {{ user.name }}
+              </p>
+
+            </div>
+
+
+            <!-- Email -->
+            <div
+              class="rounded-[16px] bg-[#faf9f7] p-5"
+            >
+
+              <p class="text-sm text-gray-500">
+                Email Address
+              </p>
+
+              <p class="mt-2 font-semibold text-gray-900">
+                {{ user.email }}
+              </p>
+
+            </div>
+
+
+            <!-- Role -->
+            <div
+              class="rounded-[16px] bg-[#faf9f7] p-5"
+            >
+
+              <p class="text-sm text-gray-500">
+                Account Role
+              </p>
+
+              <p class="mt-2 font-semibold capitalize text-red-600">
+                {{ user.role }}
+              </p>
+
+            </div>
+
+
+            <!-- Access -->
+            <div
+              class="rounded-[16px] bg-[#faf9f7] p-5"
+            >
+
+              <p class="text-sm text-gray-500">
+                Access Level
+              </p>
+
+              <p class="mt-2 font-semibold text-gray-900">
+                Full Administrator Access
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Admin Access -->
+        <div class="mt-8 border-t pt-8">
+
+          <h3 class="mb-5 text-lg font-bold text-gray-900">
+            Admin Access
+          </h3>
+
+
+          <div class="grid gap-4 md:grid-cols-3">
+
+            <!-- Food Management -->
+            <a
+              routerLink="/admin/foods"
+              class="group rounded-[16px] border border-gray-100 bg-[#faf9f7] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+            >
+
+              <div
+                class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg"
+              >
+                🍽️
+              </div>
+
+              <h4 class="font-bold text-gray-900">
+                Manage Foods
+              </h4>
+
+              <p class="mt-1 text-sm text-gray-500">
+                Add, edit and manage menu items.
+              </p>
+
+            </a>
+
+
+            <!-- Orders -->
+            <a
+              routerLink="/admin/orders"
+              class="group rounded-[16px] border border-gray-100 bg-[#faf9f7] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+            >
+
+              <div
+                class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg"
+              >
+                📦
+              </div>
+
+              <h4 class="font-bold text-gray-900">
+                Manage Orders
+              </h4>
+
+              <p class="mt-1 text-sm text-gray-500">
+                View and manage customer orders.
+              </p>
+
+            </a>
+
+
+            <!-- Dashboard -->
+            <a
+              routerLink="/admin"
+              class="group rounded-[16px] border border-gray-100 bg-[#faf9f7] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+            >
+
+              <div
+                class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg"
+              >
+                📊
+              </div>
+
+              <h4 class="font-bold text-gray-900">
+                Admin Dashboard
+              </h4>
+
+              <p class="mt-1 text-sm text-gray-500">
+                View restaurant management overview.
+              </p>
+
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- Action Buttons -->
+        <div
+          class="mt-8 flex flex-col justify-end gap-3 border-t pt-6 sm:flex-row"
+        >
+
+          <a
+            routerLink="/admin"
+            class="inline-flex items-center justify-center gap-2 rounded-[12px] border border-gray-200 px-6 py-3 font-semibold text-gray-700 transition duration-200 hover:bg-gray-50"
+          >
+            ← Dashboard
+          </a>
+
+
+          <a
+            routerLink="/admin/foods"
+            class="inline-flex items-center justify-center gap-2 rounded-[12px] bg-red-600 px-6 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-md"
+          >
+            Manage Restaurant
+            <span class="text-lg">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>

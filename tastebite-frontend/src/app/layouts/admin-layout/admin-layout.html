@@ -1,0 +1,229 @@
+<div class="min-h-screen bg-[#f8f8f6]">
+
+  <div class="flex min-h-screen">
+
+
+    <!-- ================================================== -->
+    <!-- DESKTOP SIDEBAR -->
+    <!-- ================================================== -->
+
+    <aside
+      class="hidden w-64 shrink-0 border-r bg-white lg:block"
+    >
+
+      <!-- Brand -->
+      <div class="border-b px-6 py-6">
+
+        <a
+          routerLink="/admin"
+          class="text-2xl font-bold text-red-600"
+        >
+          TasteBite
+        </a>
+
+        <p class="mt-1 text-xs text-gray-400">
+          Admin Panel
+        </p>
+
+      </div>
+
+
+      <!-- Navigation -->
+      <nav class="space-y-2 p-4">
+
+        @for (item of navItems; track item.route) {
+
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="bg-red-50 text-red-600"
+            [routerLinkActiveOptions]="{
+              exact: item.route === '/admin'
+            }"
+            class="block rounded-[12px] px-4 py-3 font-medium text-gray-600 transition hover:bg-gray-50"
+          >
+            {{ item.label }}
+          </a>
+
+        }
+
+      </nav>
+
+    </aside>
+
+
+
+    <!-- ================================================== -->
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    <!-- ================================================== -->
+
+    @if (sidebarOpen) {
+
+      <div
+        class="fixed inset-0 z-40 bg-black/40 lg:hidden"
+        (click)="closeSidebar()"
+      ></div>
+
+    }
+
+
+
+    <!-- ================================================== -->
+    <!-- MOBILE SIDEBAR -->
+    <!-- ================================================== -->
+
+    <aside
+      class="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl transition-transform duration-300 lg:hidden"
+      [class.translate-x-0]="sidebarOpen"
+      [class.-translate-x-full]="!sidebarOpen"
+    >
+
+      <!-- Mobile Brand -->
+      <div
+        class="flex items-center justify-between border-b px-6 py-6"
+      >
+
+        <div>
+
+          <a
+            routerLink="/admin"
+            (click)="navigate()"
+            class="text-2xl font-bold text-red-600"
+          >
+            TasteBite
+          </a>
+
+          <p class="mt-1 text-xs text-gray-400">
+            Admin Panel
+          </p>
+
+        </div>
+
+
+        <!-- Close Button -->
+        <button
+          type="button"
+          (click)="closeSidebar()"
+          aria-label="Close menu"
+          class="flex h-10 w-10 items-center justify-center rounded-full text-2xl text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- Mobile Navigation -->
+      <nav class="space-y-2 p-4">
+
+        @for (item of navItems; track item.route) {
+
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="bg-red-50 text-red-600"
+            [routerLinkActiveOptions]="{
+              exact: item.route === '/admin'
+            }"
+            (click)="navigate()"
+            class="block rounded-[12px] px-4 py-3 font-medium text-gray-600 transition hover:bg-gray-50"
+          >
+            {{ item.label }}
+          </a>
+
+        }
+
+      </nav>
+
+
+      <!-- Mobile Website Link -->
+      <div class="absolute bottom-0 w-full border-t p-4">
+
+        <a
+          routerLink="/"
+          (click)="navigate()"
+          class="block rounded-[12px] px-4 py-3 text-center text-sm font-medium text-gray-500 transition hover:bg-gray-50 hover:text-red-600"
+        >
+          View Website →
+        </a>
+
+      </div>
+
+    </aside>
+
+
+
+    <!-- ================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================================== -->
+
+    <div class="min-w-0 flex-1">
+
+
+      <!-- ================================================== -->
+      <!-- TOPBAR -->
+      <!-- ================================================== -->
+
+      <header
+        class="flex h-20 items-center justify-between border-b bg-white px-4 sm:px-6"
+      >
+
+
+        <!-- Left -->
+        <div class="flex items-center gap-3">
+
+
+          <!-- Mobile Menu Button -->
+          <button
+            type="button"
+            (click)="openSidebar()"
+            aria-label="Open menu"
+            class="flex h-10 w-10 items-center justify-center rounded-[10px] text-2xl text-gray-600 transition hover:bg-gray-100 lg:hidden"
+          >
+            ☰
+          </button>
+
+
+          <!-- Page Title -->
+          <div>
+
+            <h1 class="text-lg font-bold text-gray-900">
+              Admin Panel
+            </h1>
+
+            <p class="hidden text-xs text-gray-400 sm:block">
+              Manage your TasteBite application
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Desktop Website Link -->
+        <a
+          routerLink="/"
+          class="hidden text-sm font-medium text-gray-500 transition hover:text-red-600 sm:block"
+        >
+          View Website →
+        </a>
+
+
+      </header>
+
+
+
+      <!-- ================================================== -->
+      <!-- PAGE CONTENT -->
+      <!-- ================================================== -->
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+
+
+    </div>
+
+  </div>
+
+</div>

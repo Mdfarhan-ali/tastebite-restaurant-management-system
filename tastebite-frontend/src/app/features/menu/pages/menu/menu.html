@@ -1,0 +1,275 @@
+<div class="min-h-screen bg-[#faf9f7]">
+
+  <!-- ========================= -->
+  <!-- Menu Header -->
+  <!-- ========================= -->
+
+  <section class="px-6 pb-12 pt-16">
+
+    <div class="mx-auto max-w-7xl text-center">
+
+      <span
+        class="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+
+        Our Menu
+
+      </span>
+
+      <h1
+        class="mt-3 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+
+        Delicious Food, Made With Love
+
+      </h1>
+
+      <p
+        class="mx-auto mt-4 max-w-2xl text-gray-500">
+
+        Discover our carefully prepared dishes made with fresh ingredients
+        and authentic flavors.
+
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ========================= -->
+  <!-- Food Section -->
+  <!-- ========================= -->
+
+  <section class="px-6 pb-20">
+
+    <div class="mx-auto max-w-7xl">
+
+
+      <!-- ========================= -->
+      <!-- Category Buttons -->
+      <!-- ========================= -->
+
+      <div class="mb-10 flex flex-wrap justify-center gap-3">
+
+        @for (category of categories; track category) {
+
+          <button
+            type="button"
+            (click)="selectCategory(category)"
+            class="rounded-full px-6 py-3 text-sm font-semibold transition"
+
+            [class.bg-red-600]="selectedCategory === category"
+
+            [class.text-white]="selectedCategory === category"
+
+            [class.bg-white]="selectedCategory !== category"
+
+            [class.text-gray-700]="selectedCategory !== category"
+
+            [class.shadow-sm]="selectedCategory !== category"
+
+            [class.hover:bg-red-50]="selectedCategory !== category">
+
+            {{ category }}
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- ========================= -->
+      <!-- Loading -->
+      <!-- ========================= -->
+
+      @if (loading()) {
+
+        <div class="flex min-h-[400px] items-center justify-center">
+
+          <div
+            class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- ========================= -->
+      <!-- No Food -->
+      <!-- ========================= -->
+
+      @else if (foods().length === 0) {
+
+        <div
+          class="rounded-[24px] bg-white px-6 py-20 text-center shadow-sm ring-1 ring-gray-100">
+
+          <div
+            class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-2xl">
+
+            🍽️
+
+          </div>
+
+          <h3
+            class="mt-6 text-2xl font-bold text-gray-900">
+
+            No food available
+
+          </h3>
+
+          <p
+            class="mt-2 text-gray-500">
+
+            No dishes are currently available in
+
+            <span class="font-semibold text-gray-700">
+
+              {{ selectedCategory }}
+
+            </span>.
+
+          </p>
+
+          <button
+            type="button"
+            (click)="selectCategory('All')"
+            class="mt-6 rounded-[12px] bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-hover">
+
+            View All Foods
+
+          </button>
+
+        </div>
+
+      }
+
+
+      <!-- ========================= -->
+      <!-- Food Grid -->
+      <!-- ========================= -->
+
+      @else {
+
+        <div
+          class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+          @for (food of foods(); track food.id) {
+
+            <!-- ========================= -->
+            <!-- Clickable Food Card -->
+            <!-- ========================= -->
+
+            <a
+              [routerLink]="['/menu', food.id]"
+              class="block">
+
+              <article
+                class="group overflow-hidden rounded-[24px] bg-white shadow-sm ring-1 ring-gray-100 transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+
+
+                <!-- ========================= -->
+                <!-- Food Image -->
+                <!-- ========================= -->
+
+                <div class="relative overflow-hidden">
+
+                  <img
+                    [src]="getImageUrl(food.image)"
+                    [alt]="food.name"
+                    class="h-64 w-full object-cover transition duration-500 group-hover:scale-105">
+
+
+                  <!-- Category -->
+
+                  <span
+                    class="absolute bottom-4 left-4 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-gray-800 shadow">
+
+                    {{ food.category }}
+
+                  </span>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Card Content -->
+                <!-- ========================= -->
+
+                <div class="p-6">
+
+
+                  <!-- Name + Price -->
+
+                  <div
+                    class="flex items-start justify-between gap-4">
+
+                    <h2
+                      class="text-xl font-bold text-gray-900 transition group-hover:text-primary">
+
+                      {{ food.name }}
+
+                    </h2>
+
+                    <span
+                      class="whitespace-nowrap text-xl font-bold text-primary">
+
+                      ₹{{ food.price }}
+
+                    </span>
+
+                  </div>
+
+
+                  <!-- Description -->
+
+                  <p
+                    class="mt-3 text-sm leading-6 text-gray-500">
+
+                    {{ food.description }}
+
+                  </p>
+
+
+                  <!-- ========================= -->
+                  <!-- Card Footer -->
+                  <!-- ========================= -->
+
+                  <div
+                    class="mt-6 flex items-center justify-between border-t border-gray-100 pt-5">
+
+
+                    <span
+                      class="text-sm text-gray-400">
+
+                      Freshly Prepared
+
+                    </span>
+
+
+                    <span
+                      class="rounded-[12px] bg-primary px-4 py-2 text-sm font-semibold text-white transition group-hover:bg-primary-hover">
+
+                      View Details
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            </a>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,140 @@
+/* ==========================================
+   Tailwind CSS
+========================================== */
+@import "tailwindcss";
+
+/* ==========================================
+   Google Fonts
+========================================== */
+
+/* ==========================================
+   Theme
+========================================== */
+@theme {
+
+  /* Brand Colors */
+  --color-primary: #C0392B;
+  --color-primary-hover: #A93226;
+
+  --color-secondary: #F4B400;
+
+  --color-background: #FFFDF9;
+  --color-surface: #FFFFFF;
+
+  --color-text: #1F2937;
+  --color-text-light: #6B7280;
+
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Shadows */
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.12);
+
+}
+
+/* ==========================================
+   Base
+========================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+  color: var(--color-text);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ==========================================
+   Selection
+========================================== */
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ==========================================
+   Images
+========================================== */
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ==========================================
+   Utility Classes
+========================================== */
+
+.section-padding {
+  @apply py-32;
+}
+
+.container-width {
+  @apply mx-auto max-w-7xl px-6 lg:px-8;
+}
+
+.section-title {
+  @apply text-4xl font-bold md:text-5xl lg:text-6xl;
+}
+
+.section-subtitle {
+  @apply mt-4 text-lg leading-8 text-gray-500;
+}
+
+.card {
+  @apply rounded-[20px] bg-white shadow-lg transition-all duration-500;
+}
+
+.card:hover {
+  @apply -translate-y-2;
+}
+
+.primary-gradient {
+  @apply bg-gradient-to-r from-red-600 to-orange-500;
+}

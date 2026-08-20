@@ -1,0 +1,143 @@
+<section class="p-6 md:p-8">
+
+  <div class="mb-8">
+
+    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-red-600">
+      Overview
+    </p>
+
+    <h1 class="mt-2 text-3xl font-bold text-gray-900">
+      Dashboard
+    </h1>
+
+    <p class="mt-2 text-gray-500">
+      Welcome to your TasteBite administration panel.
+    </p>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  @if (loading()) {
+
+    <div class="flex min-h-[300px] items-center justify-center">
+
+      <div
+        class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- Dashboard Content -->
+
+  @if (!loading()) {
+
+    <!-- Stats -->
+
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+
+      <div class="rounded-[20px] bg-white p-6 shadow-sm">
+
+        <p class="text-sm text-gray-500">
+          Total Foods
+        </p>
+
+        <p class="mt-3 text-3xl font-bold">
+          {{ totalFoods() }}
+        </p>
+
+      </div>
+
+
+      <div class="rounded-[20px] bg-white p-6 shadow-sm">
+
+        <p class="text-sm text-gray-500">
+          Total Orders
+        </p>
+
+        <p class="mt-3 text-3xl font-bold">
+          {{ totalOrders() }}
+        </p>
+
+      </div>
+
+
+      <div class="rounded-[20px] bg-white p-6 shadow-sm">
+
+        <p class="text-sm text-gray-500">
+          Reservations
+        </p>
+
+        <p class="mt-3 text-3xl font-bold">
+          {{ totalReservations() }}
+        </p>
+
+      </div>
+
+
+      <div class="rounded-[20px] bg-white p-6 shadow-sm">
+
+        <p class="text-sm text-gray-500">
+          Revenue
+        </p>
+
+        <p class="mt-3 text-3xl font-bold text-red-600">
+          ₹{{ totalRevenue() }}
+        </p>
+
+        <p class="mt-1 text-xs text-gray-400">
+          Total revenue from all orders
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Quick Actions -->
+
+    <div class="mt-8 rounded-[20px] bg-white p-6 shadow-sm">
+
+      <h2 class="text-xl font-bold">
+        Quick Actions
+      </h2>
+
+      <div class="mt-5 flex flex-wrap gap-3">
+
+        <a
+          routerLink="/admin/foods"
+          class="rounded-[12px] bg-red-600 px-5 py-3 font-semibold text-white">
+
+          Manage Foods
+
+        </a>
+
+
+        <a
+          routerLink="/admin/orders"
+          class="rounded-[12px] border px-5 py-3 font-semibold">
+
+          View Orders
+
+        </a>
+
+
+        <a
+          routerLink="/admin/reservations"
+          class="rounded-[12px] border px-5 py-3 font-semibold">
+
+          Reservations
+
+        </a>
+
+      </div>
+
+    </div>
+
+  }
+
+</section>

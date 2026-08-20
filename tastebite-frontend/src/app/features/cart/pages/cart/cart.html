@@ -1,0 +1,168 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+    <div class="mx-auto max-w-6xl">
+
+        <div class="mb-10">
+
+            <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+                Your Cart
+            </span>
+
+            <h1 class="mt-2 text-4xl font-bold text-gray-900">
+                Your Order
+            </h1>
+
+        </div>
+
+        @if (cartService.items().length === 0) {
+
+        <div class="rounded-[24px] bg-white p-12 text-center shadow-sm">
+
+            <h2 class="text-2xl font-bold">
+                Your cart is empty
+            </h2>
+
+            <p class="mt-2 text-gray-500">
+                Add something delicious from our menu.
+            </p>
+
+            <a routerLink="/menu"
+                class="mt-6 inline-block rounded-[14px] bg-red-600 px-6 py-3 font-semibold text-white">
+
+                Browse Menu
+
+            </a>
+
+        </div>
+
+        } @else {
+
+        <div class="grid gap-8 lg:grid-cols-[1fr_380px]">
+
+            <!-- Cart Items -->
+
+            <div class="space-y-4">
+
+                @for (
+                item of cartService.items();
+
+                track item.food.id
+                ) {
+
+                <div class="flex gap-5 rounded-[20px] bg-white p-5 shadow-sm">
+
+                    <img [src]="getImageUrl(item.food.image)" [alt]="item.food.name"
+                        class="h-28 w-28 rounded-[14px] object-cover">
+                        
+                    <div class="flex flex-1 flex-col justify-between">
+
+                        <div class="flex justify-between gap-4">
+
+                            <div>
+
+                                <h3 class="text-lg font-bold">
+                                    {{ item.food.name }}
+                                </h3>
+
+                                <p class="mt-1 text-sm text-gray-500">
+                                    {{ item.food.category }}
+                                </p>
+
+                            </div>
+
+                            <button type="button" (click)="remove(item.food.id)" class="text-sm text-red-500">
+
+                                Remove
+
+                            </button>
+
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-between">
+
+                            <span class="font-bold text-red-600">
+                                ₹{{ item.food.price * item.quantity }}
+                            </span>
+
+                            <div class="flex items-center overflow-hidden rounded-xl border">
+
+                                <button type="button" (click)="decrease(item.food.id, item.quantity)"
+                                    class="px-4 py-2 hover:bg-gray-100">
+
+                                    −
+
+                                </button>
+
+                                <span class="px-5 font-semibold">
+                                    {{ item.quantity }}
+                                </span>
+
+                                <button type="button" (click)="increase(item.food.id, item.quantity)"
+                                    class="px-4 py-2 hover:bg-gray-100">
+
+                                    +
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+            <!-- Summary -->
+
+            <div class="h-fit rounded-[24px] bg-white p-6 shadow-sm">
+
+                <h2 class="text-xl font-bold">
+                    Order Summary
+                </h2>
+
+                <div class="mt-6 flex justify-between text-gray-600">
+
+                    <span>
+                        Items ({{ cartService.totalItems() }})
+                    </span>
+
+                    <span>
+                        ₹{{ cartService.subtotal() }}
+                    </span>
+
+                </div>
+
+                <div class="my-5 border-t"></div>
+
+                <div class="flex justify-between text-xl font-bold">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span class="text-red-600">
+                        ₹{{ cartService.subtotal() }}
+                    </span>
+
+                </div>
+
+                <a routerLink="/checkout"
+                    class="mt-6 flex w-full items-center justify-center rounded-[14px] bg-red-600 px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-lg">
+
+                    Proceed to Checkout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>

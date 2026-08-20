@@ -1,0 +1,85 @@
+<section class="bg-gray-50 py-24">
+
+    <app-container>
+
+        <!-- Heading -->
+
+        <div class="mb-20 text-center">
+
+            <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+                Testimonials
+            </span>
+
+            <h2 class="mt-4 text-5xl font-bold lg:text-6xl">
+                What Our Customers Say
+            </h2>
+
+            <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+                Hear what our happy customers have to say about their unforgettable dining experience.
+            </p>
+
+        </div>
+
+        <!-- Cards -->
+
+        <div class="grid gap-8 lg:grid-cols-3">
+
+            @for (item of testimonials; track item.id) {
+
+            <div
+                class="rounded-[24px] bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <!-- Customer -->
+
+                <div class="mb-6 flex items-center gap-4">
+
+                    <div
+                        class="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-orange-500 text-xl font-bold text-white">
+
+                        {{ item.avatar }}
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="text-xl font-semibold text-gray-900">
+
+                            {{ item.name }}
+
+                        </h4>
+
+                        <p class="text-sm text-gray-500">
+
+                            {{ item.location }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Rating -->
+
+                <div class="mb-5 text-yellow-500">
+
+                    ★★★★★
+
+                </div>
+
+                <!-- Review -->
+
+                <p class="leading-8 text-gray-600 italic">
+
+                    "{{ item.review }}"
+
+                </p>
+
+            </div>
+
+            }
+
+        </div>
+
+    </app-container>
+
+</section>

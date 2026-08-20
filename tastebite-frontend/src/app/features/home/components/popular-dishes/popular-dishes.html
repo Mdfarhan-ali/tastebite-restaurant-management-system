@@ -1,0 +1,35 @@
+<section class="py-24">
+
+  <app-container>
+
+    <div class="mb-16 text-center">
+
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+        Popular Dishes
+      </span>
+
+      <h2 class="mt-4 text-5xl font-bold text-gray-900">
+        Customer Favorites
+      </h2>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+        Explore our most loved dishes, prepared fresh every day.
+      </p>
+
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+      @for (dish of dishes; track dish.id) {
+
+        <app-food-card
+          [food]="dish">
+        </app-food-card>
+
+      }
+
+    </div>
+
+  </app-container>
+
+</section>

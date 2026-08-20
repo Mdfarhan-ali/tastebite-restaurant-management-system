@@ -1,0 +1,425 @@
+<section class="min-h-screen bg-gray-50 p-6 md:p-8">
+
+  <div class="mx-auto max-w-3xl">
+
+    <!-- Back -->
+    <div class="mb-8">
+
+      <a
+        routerLink="/admin/foods"
+        class="text-sm font-medium text-red-600 hover:text-red-700"
+      >
+        ← Back to Foods
+      </a>
+
+      <h1 class="mt-4 text-3xl font-bold text-slate-900">
+        {{ editing ? 'Edit Food' : 'Add Food' }}
+      </h1>
+
+      <p class="mt-2 text-gray-500">
+        {{ editing
+          ? 'Update your restaurant food item.'
+          : 'Create a new item for your restaurant menu.'
+        }}
+      </p>
+
+    </div>
+
+
+    <!-- FORM -->
+    <form
+      [formGroup]="foodForm"
+      (ngSubmit)="submit()"
+      class="space-y-6 rounded-[24px] bg-white p-6 shadow-sm md:p-8"
+    >
+
+
+      <!-- ============================= -->
+      <!-- FOOD NAME -->
+      <!-- ============================= -->
+
+      <div>
+
+        <label
+          class="mb-2 block text-sm font-semibold text-slate-900"
+        >
+          Food Name
+        </label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Margherita Pizza"
+          class="w-full rounded-[12px] border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500"
+        />
+
+        @if (
+          foodForm.get('name')?.invalid &&
+          foodForm.get('name')?.touched
+        ) {
+
+          <small class="mt-1 block text-red-600">
+            Food name is required.
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- DESCRIPTION -->
+      <!-- ============================= -->
+
+      <div>
+
+        <label
+          class="mb-2 block text-sm font-semibold text-slate-900"
+        >
+          Description
+        </label>
+
+        <textarea
+          rows="4"
+          formControlName="description"
+          placeholder="Describe the food..."
+          class="w-full rounded-[12px] border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500"
+        ></textarea>
+
+        @if (
+          foodForm.get('description')?.invalid &&
+          foodForm.get('description')?.touched
+        ) {
+
+          <small class="mt-1 block text-red-600">
+            Description is required.
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- PRICE + CATEGORY -->
+      <!-- ============================= -->
+
+      <div class="grid gap-5 md:grid-cols-2">
+
+
+        <!-- PRICE -->
+
+        <div>
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Price
+          </label>
+
+          <input
+            type="number"
+            min="0"
+            formControlName="price"
+            class="w-full rounded-[12px] border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500"
+          />
+
+          @if (
+            foodForm.get('price')?.invalid &&
+            foodForm.get('price')?.touched
+          ) {
+
+            <small class="mt-1 block text-red-600">
+              Price must be greater than 0.
+            </small>
+
+          }
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div>
+
+          <label
+            class="mb-2 block text-sm font-semibold text-slate-900"
+          >
+            Category
+          </label>
+
+          <select
+            formControlName="category"
+            class="w-full rounded-[12px] border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-red-500"
+          >
+
+            <option value="">
+              Select Category
+            </option>
+
+            @for (
+              category of categories;
+              track category
+            ) {
+
+              <option [value]="category">
+                {{ category }}
+              </option>
+
+            }
+
+          </select>
+
+
+          @if (
+            foodForm.get('category')?.invalid &&
+            foodForm.get('category')?.touched
+          ) {
+
+            <small class="mt-1 block text-red-600">
+              Please select a category.
+            </small>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- IMAGE UPLOAD -->
+      <!-- ============================= -->
+
+      <div>
+
+        <label
+          class="mb-2 block text-sm font-semibold text-slate-900"
+        >
+          Food Image
+        </label>
+
+
+        <!-- Hidden file input -->
+
+        <input
+          #fileInput
+          type="file"
+          accept="image/jpeg,image/jpg,image/png,image/webp"
+          (change)="onFileSelected($event)"
+          hidden
+        />
+
+
+        <!-- Upload Box -->
+
+        <div
+          class="flex min-h-[220px] flex-col items-center justify-center rounded-[16px] border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center transition hover:border-red-400"
+        >
+
+          <div class="mb-3 text-4xl">
+            📷
+          </div>
+
+
+          <h3 class="text-lg font-semibold text-slate-900">
+            Upload Food Image
+          </h3>
+
+
+          <p class="mt-1 text-sm text-gray-500">
+            JPG, JPEG, PNG or WEBP
+          </p>
+
+
+          <!-- Choose Image -->
+
+          <button
+            type="button"
+            (click)="fileInput.click()"
+            [disabled]="uploadingImage"
+            class="mt-5 rounded-[10px] bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+
+            @if (!uploadingImage) {
+              Choose Image
+            }
+
+            @if (uploadingImage) {
+              Uploading...
+            }
+
+          </button>
+
+
+          <!-- Selected file -->
+
+          @if (selectedFile) {
+
+            <p class="mt-4 text-sm text-gray-600">
+
+              Selected:
+
+              <span class="font-semibold text-slate-900">
+                {{ selectedFile.name }}
+              </span>
+
+            </p>
+
+          }
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- IMAGE PREVIEW -->
+        <!-- ============================= -->
+
+        @if (imagePreview) {
+
+          <div class="mt-5">
+
+            <p class="mb-2 text-sm font-semibold text-slate-900">
+              Image Preview
+            </p>
+
+
+            <div
+              class="overflow-hidden rounded-[14px] border border-gray-200 bg-gray-50"
+            >
+
+              <img
+                [src]="imagePreview"
+                alt="Food preview"
+                class="h-64 w-full object-cover"
+              />
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- Upload Success -->
+
+        @if (uploadMessage) {
+
+          <div
+            class="mt-3 rounded-[10px] bg-green-50 px-4 py-3 text-sm font-medium text-green-700"
+          >
+            ✓ {{ uploadMessage }}
+          </div>
+
+        }
+
+
+        <!-- Upload Error -->
+
+        @if (uploadError) {
+
+          <div
+            class="mt-3 rounded-[10px] bg-red-50 px-4 py-3 text-sm font-medium text-red-600"
+          >
+            {{ uploadError }}
+          </div>
+
+        }
+
+
+        @if (
+          foodForm.get('imageUrl')?.invalid &&
+          foodForm.get('imageUrl')?.touched
+        ) {
+
+          <small class="mt-2 block text-red-600">
+            Please upload a food image.
+          </small>
+
+        }
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- STATUS -->
+      <!-- ============================= -->
+
+      <div class="flex flex-wrap gap-8">
+
+
+        <!-- AVAILABLE -->
+
+        <label
+          class="flex cursor-pointer items-center gap-3"
+        >
+
+          <input
+            type="checkbox"
+            formControlName="available"
+            class="h-4 w-4 accent-red-600"
+          />
+
+          <span class="text-sm font-medium">
+            Available
+          </span>
+
+        </label>
+
+
+        <!-- FEATURED -->
+
+        <label
+          class="flex cursor-pointer items-center gap-3"
+        >
+
+          <input
+            type="checkbox"
+            formControlName="featured"
+            class="h-4 w-4 accent-red-600"
+          />
+
+          <span class="text-sm font-medium">
+            Featured
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- SUBMIT -->
+      <!-- ============================= -->
+
+      <button
+        type="submit"
+        [disabled]="loading || uploadingImage"
+        class="w-full rounded-[12px] bg-red-600 px-6 py-4 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+
+        @if (loading) {
+
+          @if (editing) {
+            Updating Food...
+          } @else {
+            Creating Food...
+          }
+
+        } @else {
+
+          @if (editing) {
+            Update Food
+          } @else {
+            Create Food
+          }
+
+        }
+
+      </button>
+
+    </form>
+
+  </div>
+
+</section>

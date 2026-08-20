@@ -1,0 +1,170 @@
+<div class="min-h-screen bg-background">
+
+    <div class="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-2">
+
+        <!-- Left -->
+
+        <div class="hidden items-center justify-center bg-primary p-16 lg:flex">
+
+            <div class="text-center text-white">
+
+                <h1 class="text-6xl font-bold">
+                    TasteBite
+                </h1>
+
+                <p class="mt-6 text-xl">
+                    Delicious food delivered with love.
+                </p>
+
+                <img src="/images/login/login-banner.jpg" alt="Login" class="mx-auto mt-12 w-full max-w-md">
+
+            </div>
+
+        </div>
+
+        <!-- Right -->
+
+        <div class="flex items-center justify-center p-8">
+
+            <div class="w-full max-w-md rounded-[20px] bg-white p-10 shadow-xl">
+
+                <h2 class="text-4xl font-bold">
+                    Welcome Back 👋
+                </h2>
+
+                <p class="mt-3 text-text-light">
+                    Login to continue.
+                </p>
+
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-10 space-y-6">
+
+                    <!-- Email -->
+
+                    <div>
+
+                        <label class="mb-2 block font-medium">
+
+                            Email
+
+                        </label>
+
+                        <input type="email" formControlName="email"
+                            class="w-full rounded-[14px] border border-gray-300 px-4 py-3 outline-none transition focus:border-primary">
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div>
+
+                        <label class="mb-2 block font-medium">
+
+                            Password
+
+                        </label>
+
+                        <div class="relative">
+
+                            <input [type]="hidePassword() ? 'password' : 'text'" formControlName="password"
+                                class="w-full rounded-[14px] border border-gray-300 px-4 py-3 pr-12 outline-none transition focus:border-primary">
+
+                            <button type="button" (click)="togglePassword()"
+                                class="absolute right-4 top-1/2 -translate-y-1/2">
+
+                                <i class="fa-solid" [class.fa-eye]="hidePassword()"
+                                    [class.fa-eye-slash]="!hidePassword()">
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Remember -->
+
+                    <div class="flex items-center justify-between">
+
+                        <label class="flex items-center gap-2">
+
+                            <input type="checkbox" formControlName="rememberMe">
+
+                            Remember me
+
+                        </label>
+
+                        <a routerLink="/auth/forgot-password" class="text-primary hover:underline">
+
+                            Forgot Password?
+
+                        </a>
+
+                    </div>
+
+                    <!-- Button -->
+
+                    <button type="submit"
+                        class="w-full rounded-[14px] bg-primary py-3 font-semibold text-white transition hover:bg-primary-hover">
+
+                        @if(!loading()){
+
+                        Login
+
+                        }
+
+                        @else{
+
+                        Logging In...
+
+                        }
+
+                    </button>
+
+                    <!-- Divider -->
+
+                    <div class="flex items-center gap-4">
+
+                        <hr class="flex-1">
+
+                        <span class="text-sm text-gray-400">
+
+                            OR
+
+                        </span>
+
+                        <hr class="flex-1">
+
+                    </div>
+
+                    <!-- Google -->
+
+                    <button type="button"
+                        class="flex w-full items-center justify-center gap-3 rounded-[14px] border border-gray-300 py-3 transition hover:bg-gray-100">
+
+                        <i class="fa-brands fa-google"></i>
+
+                        Continue with Google
+
+                    </button>
+
+                    <p class="text-center">
+
+                        Don't have an account?
+
+                        <a routerLink="/auth/register" class="font-semibold text-primary">
+
+                            Register
+
+                        </a>
+
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

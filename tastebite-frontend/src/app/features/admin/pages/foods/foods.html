@@ -1,0 +1,295 @@
+<section class="p-6 md:p-8">
+
+  <!-- Header -->
+
+  <div class="flex flex-col justify-between gap-5 md:flex-row md:items-center">
+
+    <div>
+
+      <p class="text-sm font-semibold uppercase tracking-[0.25em] text-red-600">
+
+        Management
+
+      </p>
+
+      <h1 class="mt-2 text-3xl font-bold">
+
+        Foods
+
+      </h1>
+
+      <p class="mt-2 text-gray-500">
+
+        Manage your restaurant menu.
+
+      </p>
+
+    </div>
+
+
+    <!-- Add Food -->
+
+    <a routerLink="/admin/foods/new"
+      class="rounded-[12px] bg-red-600 px-5 py-3 text-center font-semibold text-white transition hover:bg-red-700">
+
+      + Add Food
+
+    </a>
+
+  </div>
+
+
+  <!-- Filters -->
+
+  <div class="mt-8 flex flex-col gap-4 rounded-[20px] bg-white p-5 shadow-sm md:flex-row">
+
+
+    <!-- Search -->
+
+    <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Search food..."
+      class="flex-1 rounded-[12px] border border-gray-200 px-4 py-3 outline-none focus:border-red-500">
+
+
+    <!-- Category -->
+
+    <select [ngModel]="selectedCategory()" (ngModelChange)="selectedCategory.set($event)"
+      class="rounded-[12px] border border-gray-200 px-4 py-3 outline-none focus:border-red-500">
+
+      @for (
+      category of categories;
+      track category
+      ) {
+
+      <option [value]="category">
+
+        {{ category }}
+
+      </option>
+
+      }
+
+    </select>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  @if (loading()) {
+
+  <div class="flex min-h-[300px] items-center justify-center">
+
+    <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+    </div>
+
+  </div>
+
+  }
+
+
+  <!-- Food Table -->
+
+  @else {
+
+  <div class="mt-6 overflow-hidden rounded-[20px] bg-white shadow-sm">
+
+    <div class="overflow-x-auto">
+
+      <table class="w-full min-w-[800px]">
+
+
+        <!-- Table Header -->
+
+        <thead class="border-b bg-gray-50">
+
+          <tr>
+
+            <th class="px-6 py-4 text-left text-sm font-semibold">
+
+              Food
+
+            </th>
+
+            <th class="px-6 py-4 text-left text-sm font-semibold">
+
+              Category
+
+            </th>
+
+            <th class="px-6 py-4 text-left text-sm font-semibold">
+
+              Price
+
+            </th>
+
+            <th class="px-6 py-4 text-left text-sm font-semibold">
+
+              Status
+
+            </th>
+
+            <th class="px-6 py-4 text-right text-sm font-semibold">
+
+              Actions
+
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <!-- Table Body -->
+
+        <tbody class="divide-y">
+
+          @for (
+          food of filteredFoods;
+          track food.id
+          ) {
+
+          <tr class="transition hover:bg-gray-50">
+
+
+            <!-- Food -->
+
+            <td class="px-6 py-4">
+
+              <div class="flex items-center gap-4">
+
+                <img [src]="getImageUrl(food.image)" [alt]="food.name" class="h-12 w-12 rounded-[10px] object-cover">
+
+
+                <div>
+
+                  <p class="font-semibold">
+
+                    {{ food.name }}
+
+                  </p>
+
+                  <p class="max-w-xs truncate text-sm text-gray-500">
+
+                    {{ food.description }}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- Category -->
+
+            <td class="px-6 py-4">
+
+              <span class="rounded-full bg-gray-100 px-3 py-1 text-sm">
+
+                {{ food.category }}
+
+              </span>
+
+            </td>
+
+
+            <!-- Price -->
+
+            <td class="px-6 py-4 font-semibold">
+
+              ₹{{ food.price }}
+
+            </td>
+
+
+            <!-- Status -->
+
+            <td class="px-6 py-4">
+
+              @if (food.available) {
+
+              <span class="font-medium text-green-600">
+
+                Available
+
+              </span>
+
+              } @else {
+
+              <span class="font-medium text-red-500">
+
+                Unavailable
+
+              </span>
+
+              }
+
+            </td>
+
+
+            <!-- Actions -->
+
+            <td class="px-6 py-4">
+
+              <div class="flex justify-end gap-2">
+
+
+                <!-- Edit -->
+
+                <a [routerLink]="[
+                        '/admin/foods/edit',
+                        food.id
+                      ]" class="rounded-[10px] border px-3 py-2 text-sm font-medium hover:bg-gray-50">
+
+                  Edit
+
+                </a>
+
+
+                <!-- Delete -->
+
+                <button type="button" (click)="deleteFood(food.id)"
+                  class="rounded-[10px] bg-red-50 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-100">
+
+                  Delete
+
+                </button>
+
+              </div>
+
+            </td>
+
+
+          </tr>
+
+          }
+
+
+          <!-- Empty State -->
+
+          @empty {
+
+          <tr>
+
+            <td colspan="5" class="px-6 py-16 text-center text-gray-500">
+
+              No foods found.
+
+            </td>
+
+          </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  }
+
+</section>

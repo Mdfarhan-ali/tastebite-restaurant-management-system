@@ -1,0 +1,44 @@
+<section class="bg-white py-24">
+
+  <app-container>
+
+    <div class="mb-16 text-center">
+
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+        Gallery
+      </span>
+
+      <h2 class="mt-4 text-5xl font-bold lg:text-6xl">
+        Delicious Moments
+      </h2>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+        A glimpse of our delicious food and beautiful restaurant.
+      </p>
+
+    </div>
+
+    <div class="grid auto-rows-[180px] grid-cols-2 gap-6 md:grid-cols-3">
+
+      @for (image of images; track $index; let i = $index) {
+
+      <div
+        class="overflow-hidden rounded-[20px] shadow-md transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
+
+        [class.row-span-2]="i === 1 || i === 4"
+        [class.row-span-3]="i === 2">
+
+        <img
+          [src]="image"
+          alt="Gallery"
+          class="h-full w-full object-cover transition-transform duration-700 hover:scale-110">
+
+      </div>
+
+      }
+
+    </div>
+
+  </app-container>
+
+</section>

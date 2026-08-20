@@ -1,0 +1,216 @@
+<section class="p-6 md:p-8">
+
+  <div class="mb-8">
+
+    <p
+      class="text-sm font-semibold uppercase tracking-[0.25em] text-red-600">
+
+      Management
+
+    </p>
+
+    <h1 class="mt-2 text-3xl font-bold">
+
+      Reservations
+
+    </h1>
+
+    <p class="mt-2 text-gray-500">
+
+      Manage customer table reservations.
+
+    </p>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  @if (loading()) {
+
+    <div
+      class="flex min-h-[300px] items-center justify-center">
+
+      <div
+        class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- Reservations -->
+
+  @else {
+
+    <div
+      class="overflow-hidden rounded-[20px] bg-white shadow-sm">
+
+      <div class="overflow-x-auto">
+
+        <table class="w-full min-w-[850px]">
+
+          <!-- Table Header -->
+
+          <thead
+            class="border-b bg-gray-50">
+
+            <tr>
+
+              <th
+                class="px-6 py-4 text-left text-sm font-semibold">
+
+                Reservation
+
+              </th>
+
+              <th
+                class="px-6 py-4 text-left text-sm font-semibold">
+
+                Date
+
+              </th>
+
+              <th
+                class="px-6 py-4 text-left text-sm font-semibold">
+
+                Time
+
+              </th>
+
+              <th
+                class="px-6 py-4 text-left text-sm font-semibold">
+
+                Guests
+
+              </th>
+
+              <th
+                class="px-6 py-4 text-left text-sm font-semibold">
+
+                Status
+
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <!-- Table Body -->
+
+          <tbody class="divide-y">
+
+            @for (
+              reservation of reservations();
+              track reservation.id
+            ) {
+
+              <tr
+                class="transition hover:bg-gray-50">
+
+
+                <!-- Reservation ID -->
+
+                <td
+                  class="px-6 py-5 font-semibold">
+
+                  #{{ reservation.id }}
+
+                </td>
+
+
+                <!-- Date -->
+
+                <td class="px-6 py-5">
+
+                  {{ reservation.reservationDate }}
+
+                </td>
+
+
+                <!-- Time -->
+
+                <td class="px-6 py-5">
+
+                  {{ reservation.reservationTime }}
+
+                </td>
+
+
+                <!-- Guests -->
+
+                <td class="px-6 py-5">
+
+                  {{ reservation.guests }}
+
+                </td>
+
+
+                <!-- Status -->
+
+                <td class="px-6 py-5">
+
+                  <select
+                    [value]="reservation.status"
+                    (change)="
+                      updateStatus(
+                        reservation.id,
+                        $any($event.target).value
+                      )
+                    "
+                    class="rounded-[10px] border border-gray-200 px-3 py-2 text-sm">
+
+                    @for (
+                      status of statuses;
+                      track status
+                    ) {
+
+                      <option [value]="status">
+
+                        {{ status }}
+
+                      </option>
+
+                    }
+
+                  </select>
+
+                </td>
+
+
+              </tr>
+
+            }
+
+
+            <!-- Empty State -->
+
+            @empty {
+
+              <tr>
+
+                <td
+                  colspan="5"
+                  class="px-6 py-16 text-center text-gray-500">
+
+                  No reservations found.
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  }
+
+</section>

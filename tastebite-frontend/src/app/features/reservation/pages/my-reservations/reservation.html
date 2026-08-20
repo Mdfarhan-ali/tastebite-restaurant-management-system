@@ -1,0 +1,216 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+  <div class="mx-auto max-w-5xl">
+
+    <!-- Header -->
+
+    <div class="mb-10 text-center">
+
+      <span
+        class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+
+        Reservation
+
+      </span>
+
+      <h1 class="mt-3 text-4xl font-bold text-gray-900 md:text-5xl">
+
+        Reserve Your Table
+
+      </h1>
+
+      <p class="mx-auto mt-4 max-w-2xl text-gray-500">
+
+        Plan your perfect dining experience at TasteBite.
+        Choose your preferred date, time and number of guests.
+
+      </p>
+
+    </div>
+
+
+    <!-- Reservation Card -->
+
+    <div
+      class="mx-auto max-w-3xl rounded-[28px] bg-white p-8 shadow-sm md:p-10">
+
+      <form
+        (ngSubmit)="submitReservation()"
+        class="space-y-6">
+
+        <!-- Date + Time -->
+
+        <div class="grid gap-6 md:grid-cols-2">
+
+          <div>
+
+            <label
+              for="reservationDate"
+              class="mb-2 block text-sm font-semibold text-gray-700">
+
+              Date
+
+            </label>
+
+            <input
+              id="reservationDate"
+              type="date"
+              name="reservationDate"
+              [(ngModel)]="reservationDate"
+              required
+              class="w-full rounded-[14px] border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500">
+
+          </div>
+
+
+          <div>
+
+            <label
+              for="reservationTime"
+              class="mb-2 block text-sm font-semibold text-gray-700">
+
+              Time
+
+            </label>
+
+            <input
+              id="reservationTime"
+              type="time"
+              name="reservationTime"
+              [(ngModel)]="reservationTime"
+              required
+              class="w-full rounded-[14px] border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500">
+
+          </div>
+
+        </div>
+
+
+        <!-- Guests -->
+
+        <div>
+
+          <label
+            for="guests"
+            class="mb-2 block text-sm font-semibold text-gray-700">
+
+            Number of Guests
+
+          </label>
+
+          <select
+            id="guests"
+            name="guests"
+            [(ngModel)]="guests"
+            class="w-full rounded-[14px] border border-gray-200 px-4 py-3 outline-none focus:border-red-500">
+
+            <option [ngValue]="1">
+              1 Guest
+            </option>
+
+            <option [ngValue]="2">
+              2 Guests
+            </option>
+
+            <option [ngValue]="3">
+              3 Guests
+            </option>
+
+            <option [ngValue]="4">
+              4 Guests
+            </option>
+
+            <option [ngValue]="5">
+              5 Guests
+            </option>
+
+            <option [ngValue]="6">
+              6 Guests
+            </option>
+
+            <option [ngValue]="7">
+              7 Guests
+            </option>
+
+            <option [ngValue]="8">
+              8 Guests
+            </option>
+
+            <option [ngValue]="9">
+              9 Guests
+            </option>
+
+            <option [ngValue]="10">
+              10 Guests
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Special Request -->
+
+        <div>
+
+          <label
+            for="specialRequest"
+            class="mb-2 block text-sm font-semibold text-gray-700">
+
+            Special Request
+
+            <span class="font-normal text-gray-400">
+              (Optional)
+            </span>
+
+          </label>
+
+          <textarea
+            id="specialRequest"
+            name="specialRequest"
+            [(ngModel)]="specialRequest"
+            rows="4"
+            placeholder="Birthday celebration, window seat, etc."
+            class="w-full resize-none rounded-[14px] border border-gray-200 px-4 py-3 outline-none focus:border-red-500">
+          </textarea>
+
+        </div>
+
+
+        <!-- Submit -->
+
+        <button
+          type="submit"
+          [disabled]="submitting()"
+          class="w-full rounded-[14px] bg-red-600 px-6 py-4 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60">
+
+          @if (submitting()) {
+
+            Booking Your Table...
+
+          } @else {
+
+            Reserve Table
+
+          }
+
+        </button>
+
+
+        <!-- Back -->
+
+        <a
+          routerLink="/"
+          class="block text-center text-sm text-gray-500 hover:text-red-600">
+
+          ← Back to Home
+
+        </a>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>

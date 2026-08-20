@@ -1,0 +1,286 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+
+
+  <div class="mx-auto max-w-5xl">
+
+    <!-- ========================= -->
+    <!-- Header -->
+    <!-- ========================= -->
+    
+    <a
+  routerLink="/dashboard"
+  class="mb-8 mt-6 inline-block text-red-600 transition hover:text-red-700">
+  ← Back to Dashboard
+ </a>
+
+    <div class="mb-10">
+
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+
+        My Orders
+
+      </span>
+
+      <h1 class="mt-2 text-4xl font-bold text-gray-900">
+
+        Order History
+
+      </h1>
+
+      <p class="mt-2 text-gray-500">
+
+        View and track all your restaurant orders.
+
+      </p>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Loading -->
+    <!-- ========================= -->
+
+    @if (loading()) {
+
+    <div class="flex min-h-[400px] items-center justify-center">
+
+      <div class="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+      </div>
+
+    </div>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- Empty Orders -->
+    <!-- ========================= -->
+
+    @else if (orders().length === 0) {
+
+    <div class="rounded-[24px] bg-white p-12 text-center shadow-sm ring-1 ring-gray-100">
+
+      <!-- Icon -->
+
+      <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-2xl">
+
+        🍽️
+
+      </div>
+
+
+      <!-- Title -->
+
+      <h2 class="mt-6 text-2xl font-bold text-gray-900">
+
+        No orders yet
+
+      </h2>
+
+
+      <!-- Description -->
+
+      <p class="mt-2 text-gray-500">
+
+        Your delicious journey starts here.
+
+      </p>
+
+
+      <!-- Browse Menu -->
+
+      <a routerLink="/menu"
+        class="mt-6 inline-flex items-center rounded-[14px] bg-red-600 px-6 py-3 font-semibold text-white transition duration-200 hover:bg-red-700 hover:shadow-lg">
+
+        Browse Menu
+
+      </a>
+
+    </div>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- Orders -->
+    <!-- ========================= -->
+
+    @else {
+
+    <div class="space-y-5">
+
+      @for (order of orders(); track order.id) {
+
+      <!-- ========================= -->
+      <!-- Order Card -->
+      <!-- ========================= -->
+
+      <div
+        class="group rounded-[20px] bg-white p-6 shadow-sm ring-1 ring-gray-100 transition duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-red-100">
+
+
+        <!-- ========================= -->
+        <!-- Order Header -->
+        <!-- ========================= -->
+
+        <div class="flex flex-wrap items-center justify-between gap-4">
+
+          <!-- Order Information -->
+
+          <div>
+
+            <p class="text-sm font-medium text-gray-500">
+
+              Order #{{ order.id }}
+
+            </p>
+
+
+            <p class="mt-1 text-sm text-gray-500">
+
+              {{ order.createdAt | date:'medium' }}
+
+            </p>
+
+          </div>
+
+
+          <!-- ========================= -->
+          <!-- Status -->
+          <!-- ========================= -->
+
+          <span class="rounded-full px-4 py-2 text-sm font-semibold" [class.bg-yellow-100]="order.status === 'PENDING'"
+            [class.text-yellow-700]="order.status === 'PENDING'" [class.bg-blue-100]="order.status === 'CONFIRMED'"
+            [class.text-blue-700]="order.status === 'CONFIRMED'" [class.bg-orange-100]="order.status === 'PREPARING'"
+            [class.text-orange-700]="order.status === 'PREPARING'"
+            [class.bg-purple-100]="order.status === 'OUT_FOR_DELIVERY'"
+            [class.text-purple-700]="order.status === 'OUT_FOR_DELIVERY'"
+            [class.bg-green-100]="order.status === 'DELIVERED'" [class.text-green-700]="order.status === 'DELIVERED'"
+            [class.bg-red-100]="order.status === 'CANCELLED'" [class.text-red-700]="order.status === 'CANCELLED'">
+
+            {{ order.status }}
+
+          </span>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- Divider -->
+        <!-- ========================= -->
+
+        <div class="mt-5 border-t border-gray-100 pt-5">
+
+
+          <!-- ========================= -->
+          <!-- Delivery Address -->
+          <!-- ========================= -->
+
+          <div>
+
+            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">
+
+              Delivery Address
+
+            </p>
+
+
+            <p class="mt-1 text-gray-600">
+
+              {{ order.deliveryAddress }}
+
+            </p>
+
+          </div>
+
+
+          <!-- ========================= -->
+          <!-- Bottom Section -->
+          <!-- ========================= -->
+
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+
+
+            <!-- ========================= -->
+            <!-- Total -->
+            <!-- ========================= -->
+
+            <div>
+
+              <span class="text-sm font-semibold text-gray-500">
+
+                Total
+
+              </span>
+
+
+              <p class="mt-1 text-xl font-bold text-red-600">
+
+                ₹{{ order.totalAmount }}
+
+              </p>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- Actions -->
+            <!-- ========================= -->
+
+            <div class="flex items-center gap-3">
+
+
+              <!-- View Details -->
+
+              <a [routerLink]="['/orders', order.id]"
+                class="flex items-center gap-2 rounded-[10px] px-4 py-2 text-sm font-semibold text-gray-500 transition hover:bg-gray-50 hover:text-red-600">
+
+                <span>
+
+                  View Details
+
+                </span>
+
+
+                <span class="text-lg transition-transform duration-200 group-hover:translate-x-1">
+
+                  →
+
+                </span>
+
+              </a>
+
+
+              <!-- ========================= -->
+              <!-- Delete Delivered Order -->
+              <!-- ========================= -->
+
+              @if (order.status === 'DELIVERED') {
+
+              <button type="button" (click)="deleteOrder(order)"
+                class="rounded-[10px] border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 transition duration-200 hover:border-red-300 hover:bg-red-50">
+
+                Delete
+
+              </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      }
+
+    </div>
+
+    }
+
+  </div>
+
+</section>

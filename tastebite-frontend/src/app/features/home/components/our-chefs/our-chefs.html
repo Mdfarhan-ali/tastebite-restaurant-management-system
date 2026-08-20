@@ -1,0 +1,108 @@
+<section class="bg-gray-50 py-24">
+
+    <app-container>
+
+        <div class="mb-16 text-center">
+
+            <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+                Our Team
+            </span>
+
+            <h2 class="mt-4 text-5xl font-bold lg:text-6xl">
+                Meet Our Expert Chefs
+            </h2>
+
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+            @for (chef of chefs; track chef.id) {
+
+            <div
+                class="group overflow-hidden rounded-[20px] bg-white shadow-md transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl">
+
+                <!-- Image -->
+
+                <div class="relative overflow-hidden">
+
+                    <img
+                        [src]="chef.image"
+                        [alt]="chef.name"
+                        class="h-[420px] w-full object-cover transition-transform duration-500 group-hover:scale-105">
+
+                    <!-- Social Icons -->
+
+                    <div
+                        class="absolute inset-0 flex items-end justify-center bg-black/40 opacity-0 transition-all duration-300 group-hover:opacity-100">
+
+                        <div class="mb-6 flex gap-4">
+
+                            <a
+                                [href]="chef.instagram"
+                                target="_blank"
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-white text-gray-700 transition hover:bg-pink-600 hover:text-white">
+
+                                <lucide-angular
+                                    [img]="Instagram"
+                                    class="h-5 w-5">
+                                </lucide-angular>
+
+                            </a>
+
+                            <a
+                                [href]="chef.facebook"
+                                target="_blank"
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-white text-gray-700 transition hover:bg-blue-600 hover:text-white">
+
+                                <lucide-angular
+                                    [img]="Facebook"
+                                    class="h-5 w-5">
+                                </lucide-angular>
+
+                            </a>
+
+                            <a
+                                [href]="chef.twitter"
+                                target="_blank"
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-white text-gray-700 transition hover:bg-sky-500 hover:text-white">
+
+                                <lucide-angular
+                                    [img]="Twitter"
+                                    class="h-5 w-5">
+                                </lucide-angular>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Content -->
+
+                <div class="p-6 text-center">
+
+                    <h3 class="text-2xl font-semibold text-gray-900">
+
+                        {{ chef.name }}
+
+                    </h3>
+
+                    <p class="mt-2 font-medium text-red-600">
+
+                        {{ chef.role }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+    </app-container>
+
+</section>

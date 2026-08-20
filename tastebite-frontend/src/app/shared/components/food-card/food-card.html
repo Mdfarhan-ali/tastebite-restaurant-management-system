@@ -1,0 +1,80 @@
+<div
+  class="group overflow-hidden rounded-[20px] bg-white shadow-md transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl">
+
+  <!-- Image -->
+
+  <div class="overflow-hidden">
+
+    <img
+      [src]="food().image"
+      [alt]="food().name"
+      class="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-110">
+
+  </div>
+
+  <!-- Content -->
+
+  <div class="space-y-5 p-6">
+
+    <!-- Category -->
+
+    <span
+      class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-red-600">
+
+      {{ food().category }}
+
+    </span>
+
+    <!-- Name -->
+
+    <h3 class="text-2xl font-semibold text-gray-900">
+
+      {{ food().name }}
+
+    </h3>
+
+    <!-- Rating -->
+
+    <div class="flex items-center gap-2">
+
+      <span class="text-yellow-500">
+        ★★★★★
+      </span>
+
+      <span class="text-sm font-medium text-gray-600">
+
+        {{ food().rating }}
+
+      </span>
+
+    </div>
+
+    <!-- Description -->
+
+    <p class="line-clamp-2 text-gray-600">
+
+      {{ food().description }}
+
+    </p>
+
+    <!-- Bottom -->
+
+    <div class="flex items-center justify-between pt-2">
+
+      <span class="text-2xl font-bold text-red-600">
+
+        ₹{{ food().price }}
+
+      </span>
+
+      <app-button variant="primary">
+
+        Order Now
+
+      </app-button>
+
+    </div>
+
+  </div>
+
+</div>

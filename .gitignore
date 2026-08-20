@@ -1,0 +1,26 @@
+# Angular / Node
+node_modules/
+dist/
+.angular/
+.cache/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Spring Boot / Java
+target/
+*.class
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

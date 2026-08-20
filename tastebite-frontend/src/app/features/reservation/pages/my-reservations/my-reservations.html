@@ -1,0 +1,131 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+  <div class="mx-auto max-w-5xl">
+
+        <a
+  routerLink="/dashboard"
+  class="mb-8 mt-6 inline-block text-red-600 transition hover:text-red-700">
+  ← Back to Dashboard
+ </a>
+
+    <div class="mb-10">
+
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+        Reservations
+      </span>
+
+      <h1 class="mt-2 text-4xl font-bold">
+        My Reservations
+      </h1>
+
+    </div>
+
+    @if (loading()) {
+
+      <div class="flex min-h-[300px] items-center justify-center">
+
+        <div
+          class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+        </div>
+
+      </div>
+
+    } @else if (reservations().length === 0) {
+
+      <div class="rounded-[24px] bg-white p-12 text-center shadow-sm">
+
+        <h2 class="text-2xl font-bold">
+          No reservations yet
+        </h2>
+
+        <p class="mt-2 text-gray-500">
+          Reserve a table and enjoy your next meal with us.
+        </p>
+
+        <a
+          routerLink="/reservation"
+          class="mt-6 inline-block rounded-[14px] bg-red-600 px-6 py-3 font-semibold text-white">
+
+          Reserve a Table
+
+        </a>
+
+      </div>
+
+    } @else {
+
+      <div class="space-y-5">
+
+        @for (
+          reservation of reservations();
+          track reservation.id
+        ) {
+
+          <div class="rounded-[20px] bg-white p-6 shadow-sm">
+
+            <div class="flex flex-wrap items-center justify-between gap-4">
+
+              <div>
+
+                <p class="text-sm text-gray-500">
+                  Reservation #{{ reservation.id }}
+                </p>
+
+                <h2 class="mt-1 text-xl font-bold">
+
+                  {{ reservation.reservationDate }}
+                  ·
+                  {{ reservation.reservationTime }}
+
+                </h2>
+
+              </div>
+
+              <span
+                class="rounded-full bg-yellow-100 px-4 py-2 text-sm font-semibold text-yellow-700">
+
+                {{ reservation.status }}
+
+              </span>
+
+            </div>
+
+            <div class="mt-5 grid gap-4 border-t pt-5 sm:grid-cols-2">
+
+              <div>
+
+                <p class="text-sm text-gray-500">
+                  Guests
+                </p>
+
+                <p class="mt-1 font-semibold">
+                  {{ reservation.guests }}
+                </p>
+
+              </div>
+
+              <div>
+
+                <p class="text-sm text-gray-500">
+                  Special Request
+                </p>
+
+                <p class="mt-1 font-semibold">
+                  {{ reservation.specialRequest || 'None' }}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</section>

@@ -1,0 +1,113 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+  <div class="mx-auto max-w-5xl">
+
+    <div class="mb-10">
+
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+        Checkout
+      </span>
+
+      <h1 class="mt-2 text-4xl font-bold">
+        Complete Your Order
+      </h1>
+
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[1fr_380px]">
+
+      <!-- Address -->
+
+      <div class="rounded-[24px] bg-white p-8 shadow-sm">
+
+        <h2 class="text-xl font-bold">
+          Delivery Information
+        </h2>
+
+        <label class="mt-6 block text-sm font-semibold">
+          Delivery Address
+        </label>
+
+        <textarea
+          [(ngModel)]="deliveryAddress"
+          rows="5"
+          placeholder="Enter your complete delivery address"
+          class="mt-2 w-full rounded-[14px] border border-gray-200 p-4 outline-none focus:border-red-500">
+        </textarea>
+
+      </div>
+
+      <!-- Summary -->
+
+      <div class="h-fit rounded-[24px] bg-white p-6 shadow-sm">
+
+        <h2 class="text-xl font-bold">
+          Order Summary
+        </h2>
+
+        <div class="mt-6 space-y-3">
+
+          @for (
+            item of cartService.items();
+            track item.food.id
+          ) {
+
+            <div class="flex justify-between gap-4">
+
+              <span class="text-gray-600">
+                {{ item.food.name }} × {{ item.quantity }}
+              </span>
+
+              <span class="font-medium">
+                ₹{{ item.food.price * item.quantity }}
+              </span>
+
+            </div>
+
+          }
+
+        </div>
+
+        <div class="my-6 border-t"></div>
+
+        <div class="flex justify-between text-xl font-bold">
+
+          <span>
+            Total
+          </span>
+
+          <span class="text-red-600">
+            ₹{{ cartService.subtotal() }}
+          </span>
+
+        </div>
+
+        <button
+          type="button"
+          (click)="placeOrder()"
+          [disabled]="placingOrder"
+          class="mt-6 w-full rounded-[14px] bg-red-600 px-6 py-4 font-semibold text-white disabled:opacity-60">
+
+          @if (placingOrder) {
+            Placing Order...
+          } @else {
+            Place Order
+          }
+
+        </button>
+
+        <a
+          routerLink="/cart"
+          class="mt-4 block text-center text-sm font-medium text-gray-500">
+
+          ← Back to Cart
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

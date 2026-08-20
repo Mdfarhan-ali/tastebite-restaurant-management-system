@@ -1,0 +1,98 @@
+<section class="min-h-screen bg-[#faf9f7] px-6 py-16">
+
+  <div class="mx-auto max-w-4xl">
+
+    <a routerLink="/" class="mb-8 mt-6 inline-block text-red-600 transition hover:text-red-700">
+      ← Back to Home
+    </a>
+
+    <div class="mb-10">
+      <span class="text-sm font-semibold uppercase tracking-[0.3em] text-red-600">
+        My Account
+      </span>
+
+      <h1 class="mt-2 text-4xl font-bold">
+        Profile
+      </h1>
+    </div>
+
+    @if (user) {
+
+    <div class="rounded-[24px] bg-white p-8 shadow-sm">
+
+      <div class="flex items-center gap-5 border-b pb-6">
+
+        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-2xl font-bold text-red-600">
+
+          {{ user.name?.charAt(0)?.toUpperCase() }}
+
+        </div>
+
+        <div>
+
+          <h2 class="text-2xl font-bold">
+            {{ user.name }}
+          </h2>
+
+          <p class="text-gray-500">
+            {{ user.email }}
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Full Name
+          </p>
+
+          <p class="mt-1 font-semibold">
+            {{ user.name }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Email
+          </p>
+
+          <p class="mt-1 font-semibold">
+            {{ user.email }}
+          </p>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Role
+          </p>
+
+          <p class="mt-1 font-semibold">
+            {{ user.role }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Dashboard Action -->
+      <div class="mt-8 flex justify-end border-t pt-6">
+
+        <a
+          routerLink="/dashboard"
+          class="inline-flex items-center gap-2 rounded-[12px] bg-red-600 px-6 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-md"
+        >
+          Go to Dashboard
+          <span class="text-lg">→</span>
+        </a>
+
+      </div>
+
+    </div>
+
+    }
+
+  </div>
+
+</section>

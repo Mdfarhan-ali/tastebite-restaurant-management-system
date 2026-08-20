@@ -1,0 +1,670 @@
+<section class="min-h-screen bg-gray-50 p-6 md:p-8">
+
+  <div class="mx-auto max-w-7xl">
+
+    <!-- ================================================== -->
+    <!-- WELCOME -->
+    <!-- ================================================== -->
+
+    <div class="mb-8">
+
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.25em] text-red-600">
+
+        Customer Dashboard
+
+      </p>
+
+
+      <h1
+        class="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">
+
+        Welcome back, {{ userName() }} 👋
+
+      </h1>
+
+
+      <p
+        class="mt-2 text-gray-500">
+
+        Manage your orders, reservations and account from here.
+
+      </p>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- QUICK ACTIONS -->
+    <!-- ================================================== -->
+
+    <div
+      class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+
+      <!-- Browse Menu -->
+
+      <a
+        routerLink="/menu"
+        class="group rounded-[20px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-[14px] bg-red-50 text-2xl">
+
+          🍽️
+
+        </div>
+
+
+        <h2
+          class="mt-5 font-bold text-gray-900">
+
+          Browse Menu
+
+        </h2>
+
+
+        <p
+          class="mt-1 text-sm text-gray-500">
+
+          Explore our delicious food.
+
+        </p>
+
+
+        <p
+          class="mt-4 text-sm font-semibold text-red-600">
+
+          View Menu →
+
+        </p>
+
+      </a>
+
+
+      <!-- My Orders -->
+
+      <a
+        routerLink="/orders"
+        class="group rounded-[20px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-[14px] bg-blue-50 text-2xl">
+
+          📦
+
+        </div>
+
+
+        <h2
+          class="mt-5 font-bold text-gray-900">
+
+          My Orders
+
+        </h2>
+
+
+        <p
+          class="mt-1 text-sm text-gray-500">
+
+          Track your recent orders.
+
+        </p>
+
+
+        <p
+          class="mt-4 text-sm font-semibold text-red-600">
+
+          View Orders →
+
+        </p>
+
+      </a>
+
+
+      <!-- Reservations -->
+
+      <a
+        routerLink="/reservations"
+        class="group rounded-[20px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-[14px] bg-green-50 text-2xl">
+
+          📅
+
+        </div>
+
+
+        <h2
+          class="mt-5 font-bold text-gray-900">
+
+          Reservations
+
+        </h2>
+
+
+        <p
+          class="mt-1 text-sm text-gray-500">
+
+          Manage your table reservations.
+
+        </p>
+
+
+        <p
+          class="mt-4 text-sm font-semibold text-red-600">
+
+          View Reservations →
+
+        </p>
+
+      </a>
+
+
+      <!-- Profile -->
+
+      <a
+        routerLink="/profile"
+        class="group rounded-[20px] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-[14px] bg-purple-50 text-2xl">
+
+          👤
+
+        </div>
+
+
+        <h2
+          class="mt-5 font-bold text-gray-900">
+
+          My Profile
+
+        </h2>
+
+
+        <p
+          class="mt-1 text-sm text-gray-500">
+
+          Manage your account details.
+
+        </p>
+
+
+        <p
+          class="mt-4 text-sm font-semibold text-red-600">
+
+          View Profile →
+
+        </p>
+
+      </a>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- RECENT ORDERS -->
+    <!-- ================================================== -->
+
+    <div
+      class="mt-8 rounded-[20px] bg-white p-6 shadow-sm md:p-8">
+
+
+      <div
+        class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+
+        <div>
+
+          <h2
+            class="text-xl font-bold text-gray-900">
+
+            Recent Orders
+
+          </h2>
+
+
+          <p
+            class="mt-1 text-sm text-gray-500">
+
+            Your latest food orders.
+
+          </p>
+
+        </div>
+
+
+        <a
+          routerLink="/orders"
+          class="text-sm font-semibold text-red-600 hover:text-red-700">
+
+          View All →
+
+        </a>
+
+      </div>
+
+
+      <!-- Loading -->
+
+      @if (loadingOrders()) {
+
+        <div
+          class="flex min-h-[180px] items-center justify-center">
+
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- Orders -->
+
+      @else {
+
+        @if (recentOrders.length > 0) {
+
+          <div
+            class="mt-6 overflow-x-auto">
+
+            <table
+              class="w-full min-w-[650px]">
+
+              <thead
+                class="border-b bg-gray-50">
+
+                <tr>
+
+                  <th
+                    class="px-5 py-4 text-left text-sm font-semibold">
+
+                    Order
+
+                  </th>
+
+
+                  <th
+                    class="px-5 py-4 text-left text-sm font-semibold">
+
+                    Date
+
+                  </th>
+
+
+                  <th
+                    class="px-5 py-4 text-left text-sm font-semibold">
+
+                    Total
+
+                  </th>
+
+
+                  <th
+                    class="px-5 py-4 text-left text-sm font-semibold">
+
+                    Status
+
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody
+                class="divide-y">
+
+                @for (
+                  order of recentOrders;
+                  track order.id
+                ) {
+
+                  <tr
+                    class="transition hover:bg-gray-50">
+
+                    <td
+                      class="px-5 py-4">
+
+                      <a
+                        [routerLink]="[
+                          '/orders',
+                          order.id
+                        ]"
+                        class="font-semibold text-gray-900 hover:text-red-600">
+
+                        #{{ order.id }}
+
+                      </a>
+
+                    </td>
+
+
+                    <td
+                      class="px-5 py-4 text-sm text-gray-600">
+
+                      {{ formatDate(order.createdAt) }}
+
+                    </td>
+
+
+                    <td
+                      class="px-5 py-4 font-semibold">
+
+                      ₹{{ order.totalAmount }}
+
+                    </td>
+
+
+                    <td
+                      class="px-5 py-4">
+
+                      <span
+                        class="rounded-full px-3 py-1 text-xs font-semibold"
+                        [class]="getStatusClass(order.status)">
+
+                        {{ order.status }}
+
+                      </span>
+
+                    </td>
+
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        }
+
+
+        @else {
+
+          <!-- Empty Orders -->
+
+          <div
+            class="mt-6 rounded-[16px] bg-gray-50 px-6 py-12 text-center">
+
+            <div
+              class="text-4xl">
+
+              📦
+
+            </div>
+
+
+            <h3
+              class="mt-3 font-semibold text-gray-800">
+
+              No orders yet
+
+            </h3>
+
+
+            <p
+              class="mt-1 text-sm text-gray-500">
+
+              Your recent orders will appear here.
+
+            </p>
+
+
+            <a
+              routerLink="/menu"
+              class="mt-5 inline-block rounded-[10px] bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700">
+
+              Start Ordering
+
+            </a>
+
+          </div>
+
+        }
+
+      }
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- UPCOMING RESERVATIONS -->
+    <!-- ================================================== -->
+
+    <div
+      class="mt-8 rounded-[20px] bg-white p-6 shadow-sm md:p-8">
+
+
+      <div
+        class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+
+        <div>
+
+          <h2
+            class="text-xl font-bold text-gray-900">
+
+            Upcoming Reservations
+
+          </h2>
+
+
+          <p
+            class="mt-1 text-sm text-gray-500">
+
+            Your latest table reservations.
+
+          </p>
+
+        </div>
+
+
+        <a
+          routerLink="/reservations"
+          class="text-sm font-semibold text-red-600 hover:text-red-700">
+
+          View All →
+
+        </a>
+
+      </div>
+
+
+      <!-- Loading -->
+
+      @if (loadingReservations()) {
+
+        <div
+          class="flex min-h-[180px] items-center justify-center">
+
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-red-600">
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- Reservations -->
+
+      @else {
+
+        @if (upcomingReservations.length > 0) {
+
+          <div
+            class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+            @for (
+              reservation of upcomingReservations;
+              track reservation.id
+            ) {
+
+              <div
+                class="rounded-[16px] border border-gray-100 bg-gray-50 p-5">
+
+                <div
+                  class="flex items-start justify-between gap-3">
+
+                  <div>
+
+                    <p
+                      class="text-xs font-semibold uppercase tracking-wider text-gray-400">
+
+                      Reservation
+
+                    </p>
+
+
+                    <p
+                      class="mt-1 font-bold text-gray-900">
+
+                      #{{ reservation.id }}
+
+                    </p>
+
+                  </div>
+
+
+                  <span
+                    class="rounded-full px-3 py-1 text-xs font-semibold"
+                    [class]="getStatusClass(reservation.status)">
+
+                    {{ reservation.status }}
+
+                  </span>
+
+                </div>
+
+
+                <div
+                  class="mt-5 space-y-3 text-sm">
+
+                  <div
+                    class="flex justify-between">
+
+                    <span
+                      class="text-gray-500">
+
+                      Date
+
+                    </span>
+
+
+                    <span
+                      class="font-medium text-gray-800">
+
+                      {{ reservation.reservationDate }}
+
+                    </span>
+
+                  </div>
+
+
+                  <div
+                    class="flex justify-between">
+
+                    <span
+                      class="text-gray-500">
+
+                      Time
+
+                    </span>
+
+
+                    <span
+                      class="font-medium text-gray-800">
+
+                      {{ reservation.reservationTime }}
+
+                    </span>
+
+                  </div>
+
+
+                  <div
+                    class="flex justify-between">
+
+                    <span
+                      class="text-gray-500">
+
+                      Guests
+
+                    </span>
+
+
+                    <span
+                      class="font-medium text-gray-800">
+
+                      {{ reservation.guests }}
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+
+        @else {
+
+          <!-- Empty Reservations -->
+
+          <div
+            class="mt-6 rounded-[16px] bg-gray-50 px-6 py-12 text-center">
+
+            <div
+              class="text-4xl">
+
+              📅
+
+            </div>
+
+
+            <h3
+              class="mt-3 font-semibold text-gray-800">
+
+              No reservations yet
+
+            </h3>
+
+
+            <p
+              class="mt-1 text-sm text-gray-500">
+
+              Book a table and your reservation will appear here.
+
+            </p>
+
+
+            <a
+              routerLink="/reservation"
+              class="mt-5 inline-block rounded-[10px] bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700">
+
+              Make Reservation
+
+            </a>
+
+          </div>
+
+        }
+
+      }
+
+    </div>
+
+  </div>
+
+</section>
