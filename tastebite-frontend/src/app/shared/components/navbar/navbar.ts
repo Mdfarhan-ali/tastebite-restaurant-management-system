@@ -47,39 +47,56 @@ export class Navbar {
   }
 
 
+  // Close mobile menu after clicking a navigation link
+  closeMenu(): void {
+
+    this.isMenuOpen.set(false);
+
+  }
+
+
   // ======================================================
   // PROFILE NAVIGATION
   // ======================================================
 
   openProfile(): void {
 
-  const user = this.authService.user();
+    const user = this.authService.user();
 
-  console.log('Logged-in user:', user);
-  console.log('User role:', user?.role);
+    console.log('Logged-in user:', user);
+    console.log('User role:', user?.role);
 
-  if (!user) {
-    this.router.navigate(['/auth/login']);
-    return;
+    if (!user) {
+
+      this.closeMenu();
+
+      this.router.navigate(['/auth/login']);
+
+      return;
+
+    }
+
+    const role = user.role?.toString().toLowerCase();
+
+    if (role === 'admin') {
+
+      console.log('Opening Admin Profile');
+
+      this.closeMenu();
+
+      this.router.navigate(['/admin/admin-profile']);
+
+    } else {
+
+      console.log('Opening Customer Profile');
+
+      this.closeMenu();
+
+      this.router.navigate(['/profile']);
+
+    }
+
   }
-
-  const role = user.role?.toString().toLowerCase();
-
-  if (role === 'admin') {
-
-    console.log('Opening Admin Profile');
-
-    this.router.navigate(['/admin/admin-profile']);
-
-  } else {
-
-    console.log('Opening Customer Profile');
-
-    this.router.navigate(['/profile']);
-
-  }
-
-}
 
 
   // ======================================================
@@ -87,6 +104,8 @@ export class Navbar {
   // ======================================================
 
   logout(): void {
+
+    this.closeMenu();
 
     this.authService.logout();
 
