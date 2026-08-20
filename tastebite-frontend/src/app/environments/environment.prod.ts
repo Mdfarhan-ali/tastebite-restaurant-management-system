@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://YOUR-BACKEND-DOMAIN'
+  apiUrl: 'https://tastebite-backend-m3iz.onrender.com'
 };
