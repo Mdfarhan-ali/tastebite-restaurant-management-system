@@ -34,6 +34,9 @@ WORKDIR /app
 # Copy generated JAR
 COPY --from=build /app/target/*.jar app.jar
 
+# Copy uploaded food images
+COPY uploads ./uploads
+
 # Render will provide PORT.
 # Spring Boot uses ${PORT:8080}.
 EXPOSE 8080
