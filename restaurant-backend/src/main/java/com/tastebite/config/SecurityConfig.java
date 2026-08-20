@@ -25,23 +25,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
 
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthenticationFilter
     ) {
-
-        this.jwtAuthenticationFilter =
-                jwtAuthenticationFilter;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
-
 
     // ==================================================
     // PASSWORD ENCODER
@@ -49,10 +43,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
-
 
     // ==================================================
     // SECURITY FILTER CHAIN
@@ -62,7 +54,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http
     ) throws Exception {
-
 
         http
 
@@ -74,7 +65,6 @@ public class SecurityConfig {
                         csrf.disable()
                 )
 
-
                 // ==================================================
                 // CORS
                 // ==================================================
@@ -82,7 +72,6 @@ public class SecurityConfig {
                 .cors(
                         Customizer.withDefaults()
                 )
-
 
                 // ==================================================
                 // SESSION MANAGEMENT
@@ -94,13 +83,11 @@ public class SecurityConfig {
                         )
                 )
 
-
                 // ==================================================
                 // AUTHORIZATION
                 // ==================================================
 
                 .authorizeHttpRequests(auth -> {
-
 
                     // ------------------------------------------------
                     // OPTIONS / CORS PREFLIGHT
@@ -113,24 +100,19 @@ public class SecurityConfig {
                             )
                             .permitAll();
 
-
                     // ------------------------------------------------
                     // PUBLIC AUTH APIs
                     // ------------------------------------------------
 
                     auth
                             .requestMatchers(
-
                                     "/api/health",
-
                                     "/api/auth/register",
                                     "/api/auth/login",
                                     "/api/auth/forgot-password",
                                     "/api/auth/reset-password"
-
                             )
                             .permitAll();
-
 
                     // ------------------------------------------------
                     // PUBLIC FOOD GET APIs
@@ -144,9 +126,8 @@ public class SecurityConfig {
                             )
                             .permitAll();
 
-
                     // ------------------------------------------------
-                    // UPLOADED FILES
+                    // PUBLIC UPLOADED FILES
                     // ------------------------------------------------
 
                     auth
@@ -155,7 +136,6 @@ public class SecurityConfig {
                                     "/images/**"
                             )
                             .permitAll();
-
 
                     // ------------------------------------------------
                     // ADMIN FOOD CREATE APIs
@@ -169,7 +149,6 @@ public class SecurityConfig {
                             )
                             .hasRole("ADMIN");
 
-
                     // ------------------------------------------------
                     // ADMIN FOOD UPDATE APIs
                     // ------------------------------------------------
@@ -180,7 +159,6 @@ public class SecurityConfig {
                                     "/api/foods/**"
                             )
                             .hasRole("ADMIN");
-
 
                     // ------------------------------------------------
                     // ADMIN FOOD DELETE APIs
@@ -193,7 +171,6 @@ public class SecurityConfig {
                             )
                             .hasRole("ADMIN");
 
-
                     // ------------------------------------------------
                     // ADMIN ORDER APIs
                     // ------------------------------------------------
@@ -203,7 +180,6 @@ public class SecurityConfig {
                                     "/api/orders/admin/**"
                             )
                             .hasRole("ADMIN");
-
 
                     // ------------------------------------------------
                     // ADMIN RESERVATION APIs
@@ -215,7 +191,6 @@ public class SecurityConfig {
                             )
                             .hasRole("ADMIN");
 
-
                     // ------------------------------------------------
                     // EVERYTHING ELSE
                     // ------------------------------------------------
@@ -223,9 +198,7 @@ public class SecurityConfig {
                     auth
                             .anyRequest()
                             .authenticated();
-
                 })
-
 
                 // ==================================================
                 // JWT FILTER
@@ -236,10 +209,8 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class
                 );
 
-
         return http.build();
     }
-
 
     // ==================================================
     // CORS CONFIGURATION
@@ -251,14 +222,12 @@ public class SecurityConfig {
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
-
         configuration.setAllowedOrigins(
                 List.of(
                         "http://localhost:4200",
                         "https://tastebite-frontend-9aji.onrender.com"
                 )
         );
-
 
         configuration.setAllowedMethods(
                 List.of(
@@ -271,26 +240,21 @@ public class SecurityConfig {
                 )
         );
 
-
         configuration.setAllowedHeaders(
                 List.of("*")
         );
-
 
         configuration.setAllowCredentials(
                 true
         );
 
-
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
-
 
         source.registerCorsConfiguration(
                 "/**",
                 configuration
         );
-
 
         return source;
     }
