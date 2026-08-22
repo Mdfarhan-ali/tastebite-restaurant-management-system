@@ -213,7 +213,15 @@ public class SecurityConfig {
         return http.build();
     }
 
- 
+    // ==================================================
+    // PUBLIC UPLOADS SECURITY BYPASS
+    // ==================================================
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+                .requestMatchers("/uploads/**");
+    }
 
     // ==================================================
     // CORS CONFIGURATION
